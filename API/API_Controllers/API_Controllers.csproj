@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Abstract\IController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\FolderController.cs" />
+    <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BLL\BLL_Domains\BLL_Domains.csproj">
+      <Project>{fc57d7a3-3019-4d38-9d28-b26baf671a57}</Project>
+      <Name>BLL_Domains</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BLL\BLL_Services\BLL_Services.csproj">
+      <Project>{d2b2caad-f94b-4eaf-8c0b-b6ca13e292cd}</Project>
+      <Name>BLL_Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\API_Models\API_Models.csproj">
+      <Project>{86fa9cdb-6632-438b-bc65-8ab1d4800431}</Project>
+      <Name>API_Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

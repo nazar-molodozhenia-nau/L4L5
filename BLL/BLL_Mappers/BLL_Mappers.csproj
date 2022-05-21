@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappers\FileMapper.cs" />
+    <Compile Include="Mappers\FolderMapper.cs" />
+    <Compile Include="Mappers\StorageMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\API\API_Models\API_Models.csproj">
+      <Project>{86fa9cdb-6632-438b-bc65-8ab1d4800431}</Project>
+      <Name>API_Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\DAL_Entities\DAL_Entities.csproj">
+      <Project>{ec9bd798-6789-46d9-8f17-ee892ed3800c}</Project>
+      <Name>DAL_Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL_Domains\BLL_Domains.csproj">
+      <Project>{fc57d7a3-3019-4d38-9d28-b26baf671a57}</Project>
+      <Name>BLL_Domains</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

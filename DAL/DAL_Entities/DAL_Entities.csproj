@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalParametersForEntities\TypesOfStorage.cs" />
+    <Compile Include="Entities\File.cs" />
+    <Compile Include="Entities\Folder.cs" />
+    <Compile Include="Entities\Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

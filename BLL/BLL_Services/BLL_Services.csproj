@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Abstract\IService.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\FolderService.cs" />
+    <Compile Include="Services\StorageService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DAL\DAL_Entities\DAL_Entities.csproj">
+      <Project>{ec9bd798-6789-46d9-8f17-ee892ed3800c}</Project>
+      <Name>DAL_Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\DAL_Repositories\DAL_Repositories.csproj">
+      <Project>{45ab991a-150d-453f-a00f-423131f0b7e6}</Project>
+      <Name>DAL_Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\DAL_UofW\DAL_UofW.csproj">
+      <Project>{0fac4bcf-0043-444a-a30d-9a8df1332702}</Project>
+      <Name>DAL_UofW</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL_Domains\BLL_Domains.csproj">
+      <Project>{fc57d7a3-3019-4d38-9d28-b26baf671a57}</Project>
+      <Name>BLL_Domains</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
