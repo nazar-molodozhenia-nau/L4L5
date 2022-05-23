@@ -1,7 +1,15 @@
-﻿namespace API_Models {
-    public enum TypesOfStorage { InternalStorageDevices, ExternalStorageDevices, CloudStorage }
-    public enum TypesOfInternalStorageDevices { InternalHDD, InternalSSD }
-    public enum TypesOfExternalStorageDevices { ExternalHDD, ExternalSSD, FlashDrive }
-    public enum TypesOfCloudStorage { GoogleDrive, MicrosoftOneDrive, Mega, Dropbox, Box }
-    public enum SpecificType { }
+﻿using System.Linq;
+using System.Collections.Generic;
+
+namespace API_Models {
+    public enum SpecificType { GoogleDrive, MicrosoftOneDrive, Mega, Dropbox, Box }
+
+    public static class Search {
+
+        public static IEnumerable<T> GetEnumValues<T>() {
+            return SpecificType.GetValues(typeof(SpecificType)).Cast<T>();
+        }
+
+    }
+
 }

@@ -3,10 +3,87 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Width="1280" Height="720" 
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Border Background="#272537"
+            CornerRadius="13">
         
-    </Grid>
+        <Border.Style>
+            <Style>
+                <Setter Property="materialDesign:ThemeAssist.Theme" Value="Dark"/>
+            </Style>
+        </Border.Style>
+        
+        <Grid x:Name="MainGrid">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" 
+                    Background="#1a1e22" 
+                    CornerRadius="13, 13, 0, 0"
+                    MouseDown="MainGrid_Header_MouseDown">
+                
+                <Grid>
+                    <StackPanel Orientation="Horizontal" >
+                        
+                        <TextBlock Text="Content Library"
+                                   Foreground="#FFFFFF"
+                                   FontSize="20"
+                                   VerticalAlignment="Center"
+                                   Margin="50, 0, 50, 0"
+                                   FontFamily="/Fonts/#Poppins"/>
+
+                        <RadioButton Content="Content"
+                                     Foreground="#FFFFFF"
+                                     FontSize="16"
+                                     IsChecked="True"
+                                     Command="{Binding ContentSceneCommand}"
+                                     Style="{StaticResource MenuButtonTheme_Style}"
+                                     Click="ContentSceneButton"/>
+                        
+                        <RadioButton Content="Storage"
+                                     Foreground="#FFFFFF"
+                                     FontSize="16"
+                                     Command="{Binding StorageSceneCommand}"
+                                     Style="{StaticResource MenuButtonTheme_Style}"
+                                     Click="StorageSceneButton"/>
+                        
+                    </StackPanel>
+
+                    <Button Content="―"
+                            Margin="0 0 90 0"
+                            Style="{StaticResource MenuMainButtonTheme_Style}"
+                            Click="ButtonMinimizeWindow"/>
+
+                    <Button Content="▭"
+                            Margin="0 0 45 0"
+                            Style="{StaticResource MenuMainButtonTheme_Style}"
+                            Click="ButtonMaximizeWindow"/>
+
+                    <Button Content="╳"
+                            Style="{StaticResource MenuMainEndButtonTheme_Style}"
+                            Template="{StaticResource MenuMainEndButtonTheme_ControlTemplate}"
+                            Click="ButtonCloseWindow"/>
+
+                </Grid>
+                
+            </Border>
+
+            <ContentControl x:Name="WeControlScenes"
+                            Grid.Row="1"/>
+            
+        </Grid>
+        
+    </Border>
+
 </Window>

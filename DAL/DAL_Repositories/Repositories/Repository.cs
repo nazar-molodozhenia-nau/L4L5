@@ -44,7 +44,7 @@ namespace DAL_Repositories {
         }
 
         public List<TEntity> GetAll() {
-            if(typeof(TEntity) == typeof(Storage)) { return _dbSet.Include("Storage").ToList(); }
+            if(typeof(TEntity) == typeof(Storage)) { return _dbSet.ToList(); }
             else { return _dbSet.ToList(); }
         }
 
