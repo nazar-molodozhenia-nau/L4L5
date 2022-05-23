@@ -59,6 +59,10 @@ namespace UI.Scenes {
             Folder = new FolderModel();
             File = new FileModel();
 
+            // Values
+            Storage.ListFolders = new List<FolderModel>();
+            Storage.ListFiles = new List<FileModel>();
+
             // Enums
             foreach(var category in Enum.GetValues(typeof(SpecificType))) { ComboBoxStorageSpecificType.Items.Add(category.ToString()); }
 
@@ -87,10 +91,10 @@ namespace UI.Scenes {
         private void UpdateDataGrid() { StorageDataGrid.ItemsSource = _storageController.GetAll(); }
         private void UpdateDataGrid_OpenStorage() {
             ArrayList ListAll = new ArrayList();
-            List<FolderModel> ListFolder = _folderController.GetAll();
-            List<FileModel> ListFile = _fileController.GetAll();
-            foreach(FileModel file in ListFile) { if(file.IdParent == (int)SelectedId) { ListAll.Add(file); } }
-            foreach(FolderModel folder in ListFolder) { if(folder.IdParent == (int)SelectedId) { ListAll.Add(folder); } }
+            List<FolderModel> ListFolders = Storage.ListFolders;
+            List<FileModel> ListFiles = Storage.ListFiles;
+            foreach(FileModel file in ListFiles) { ListAll.Add(file); }
+            foreach(FolderModel folder in ListFolders) { ListAll.Add(folder); }
             StorageAllDataGrid.ItemsSource = ListAll;
         }
 
@@ -140,7 +144,8 @@ namespace UI.Scenes {
             if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
             Folder.IdParent = Storage.Id;
             Folder.Name = TextBoxFolderName.Text;
-            _folderController.Add(Folder);
+            Storage.ListFolders.Add(Folder);
+            _storageController.Update(Storage);
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
 
@@ -151,7 +156,7 @@ namespace UI.Scenes {
 
         private void DeleteFolderButton(object sender, System.Windows.RoutedEventArgs e) {
             if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
-            if(SelectedId != null) { _folderController.Remove((int)SelectedId); }
+            //if(SelectedId != null) { _folderController.Remove((int)SelectedId); }
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
 
@@ -161,13 +166,14 @@ namespace UI.Scenes {
             if(TextBoxFileName.Text.Trim().Length == 0) { return; }
             File.IdParent = Storage.Id;
             File.Name = TextBoxFileName.Text;
-            _fileController.Add(File);
+            Storage.ListFiles.Add(File);
+            _storageController.Update(Storage);
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
 
         private void DeleteFileButton(object sender, System.Windows.RoutedEventArgs e) {
             if(TextBoxFileName.Text.Trim().Length == 0) { return; }
-            if(SelectedId != null) { _fileController.Remove((int)SelectedId); }
+            //if(SelectedId != null) { _fileController.Remove((int)SelectedId); }
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
 
