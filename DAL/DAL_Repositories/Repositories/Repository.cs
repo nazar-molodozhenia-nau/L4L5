@@ -9,7 +9,7 @@ using System.Linq;
 namespace DAL_Repositories {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class {
         
-        private readonly ApplicationDbContext _context;
+        public readonly ApplicationDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
         public Repository(ApplicationDbContext context) {
@@ -23,7 +23,6 @@ namespace DAL_Repositories {
         }
 
         public void Update(TEntity entity) {
-            _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
@@ -34,7 +33,6 @@ namespace DAL_Repositories {
 
         public TEntity GetById(int id) {
             var entity = _dbSet.Find(id);
-            _context.Entry(entity).State = EntityState.Detached;
             return entity;
         }
 

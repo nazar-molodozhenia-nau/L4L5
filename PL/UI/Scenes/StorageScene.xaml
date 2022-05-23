@@ -95,7 +95,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Owner" Width="200" Binding="{Binding Owner}"/>
                     <DataGridTextColumn Header="Storage" Width="200" Binding="{Binding SpecificType}"/>
-                    <DataGridTextColumn Header="Storage" Width="200" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
                 </DataGrid.Columns>
 
             </DataGrid>
@@ -198,7 +198,7 @@
                   Grid.Row="0" Grid.Column="1"
                   Margin="0 25 10 10"
                   SelectedValuePath="Id"
-                  SelectedValue="{Binding SelectedId}">
+                  SelectedValue="{Binding SelectedIdNewTable}">
 
                 <DataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
@@ -210,6 +210,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
+                    <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="IdParent" Width="200" Binding="{Binding IdParent}"/>
                     <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
                 </DataGrid.Columns>
 
