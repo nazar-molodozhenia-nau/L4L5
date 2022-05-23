@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -21,30 +22,44 @@ using API_Models;
 namespace UI.Scenes {
     public partial class StorageScene : UserControl {
 
-        private readonly OpenStorageScene _openStorageScene;
+        // Scenes
 
-        private readonly IController<StorageModel> _storageController;
 
+        // IController
+        private  IController<StorageModel> _storageController;
+        private readonly IController<FolderModel> _folderController;
+        private readonly IController<FileModel> _fileController;
+
+        // Models
         public StorageModel Storage { get; set; }
+        public FolderModel Folder { get; set; }
+        public FileModel File { get; set; }
 
         // WeControlScenes
-
         public ContentControl WeControlScenes { get; set; }
 
-        public StorageScene(IController<StorageModel> storageController, OpenStorageScene openStorageScene) {
+        // Constructor
+        public StorageScene(IController<StorageModel> storageController) {
 
+            // Initialize
             InitializeComponent();
 
+            // Scenes
+
+
+            // IController
             _storageController = storageController;
 
-            _openStorageScene = openStorageScene;
-
+            // Models
             Storage = new StorageModel();
 
+            // Enums
             foreach(var category in Enum.GetValues(typeof(SpecificType))) { ComboBoxStorageSpecificType.Items.Add(category.ToString()); }
 
+            // DB
             DataContext = this;
 
+            // Start Methods
             UpdateDataGrid();
         }
 
@@ -52,9 +67,30 @@ namespace UI.Scenes {
 
         private void StorageScene_Loaded(object sender, System.Windows.RoutedEventArgs e) { }
 
+        // Text
+
+        private void Shearch() {
+            List<StorageModel> List = _storageController.GetAll();
+        }
+
+        private void UpdateTextBlock() {
+            string Owner = "Owner: " + Storage.Owner;
+            TextBlockOwner.Text = Owner;
+            TextBlockSpecificType.Text = Convert.ToString(Storage.SpecificType);
+        }
+
         // Grid
 
+        public Grid Grid { get; set; }
+
         private void UpdateDataGrid() { StorageDataGrid.ItemsSource = _storageController.GetAll(); }
+
+        private void UpdateDataGrid_OpenStorage() {
+            ArrayList ListAll = new ArrayList();
+            foreach(FileModel file in Storage.ListFiles.ToArray()) { ListAll.Add(file); }
+            foreach(FolderModel folder in Storage.ListFolders.ToArray()) { ListAll.Add(folder); }
+            StorageAllDataGrid.ItemsSource = ListAll;
+        }
 
         // Clear
 
@@ -63,7 +99,11 @@ namespace UI.Scenes {
             TextBoxOwner.Clear();
         }
 
+        private void ClearFields_OpenStorage() { TextBoxFolderName.Text = null; TextBoxFileName.Text = null; }
+
         // Button
+
+        // Storage
 
         private void AddStorageButton(object sender, System.Windows.RoutedEventArgs e) {
             if(ComboBoxStorageSpecificType.SelectedItem == null || TextBoxOwner.Text.Trim().Length == 0) { return; }
@@ -74,14 +114,17 @@ namespace UI.Scenes {
             if(ComboBoxStorageSpecificType.SelectedItem == null || TextBoxOwner.Text.Trim().Length == 0) { return; }
             List<StorageModel> List = _storageController.GetAll();
             bool flag = false;
-            foreach(StorageModel o in List) { if(o.Owner == TextBoxOwner.Text && o.SpecificType == (SpecificType)ComboBoxStorageSpecificType.SelectedItem) { flag = true; } }
-            if(flag == true) { _openStorageScene.Information(_storageController, TextBoxOwner.Text, (SpecificType)ComboBoxStorageSpecificType.SelectedItem);  WeControlScenes.Content = _openStorageScene; }
+            foreach(StorageModel o in List) { if(o.Owner == TextBoxOwner.Text && Convert.ToString(o.SpecificType) == Convert.ToString(ComboBoxStorageSpecificType.SelectedItem)) { Storage = o; flag = true; } }
+            if(flag == true) { mainGrid.Visibility = Visibility.Collapsed; OpenStorageGrid.Visibility = Visibility; UpdateTextBlock(); UpdateDataGrid_OpenStorage(); }
         }
 
         private void DeleteStorageButton(object sender, System.Windows.RoutedEventArgs e) {
             if(ComboBoxStorageSpecificType.SelectedItem == null || TextBoxOwner.Text.Trim().Length == 0) { return; }
-            if(SelectedId != null) { _storageController.Remove((int)SelectedId); ; UpdateDataGrid(); ClearFields(); } else { ClearFields(); }
+            if(SelectedId != null) { _storageController.Remove((int)SelectedId); }
+            UpdateDataGrid(); ClearFields();
         }
+
+        // Storage MouseDoubleClick
 
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) {
             StorageModel temp = (StorageModel)StorageDataGrid.SelectedItem;
@@ -91,6 +134,59 @@ namespace UI.Scenes {
                 }
             }
             TextBoxOwner.Text = temp.Owner;
+        }
+
+        // Folder
+
+        private void AddFolderButton(object sender, System.Windows.RoutedEventArgs e) {
+            if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
+            Folder = new FolderModel(); Folder.Name = TextBoxFolderName.Text;
+            Storage.ListFolders.Add(Folder); UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
+        }
+
+        private void OpenFolderButton(object sender, RoutedEventArgs e) {
+            if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
+            //WeControlScenes.Content = _openStorageScene;
+        }
+
+        private void DeleteFolderButton(object sender, System.Windows.RoutedEventArgs e) {
+            if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
+            foreach(FolderModel folder in Storage.ListFolders.ToArray()) { if(folder.Name == TextBoxFolderName.Text) { Storage.ListFolders.Remove(folder); } }
+            UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
+        }
+
+        // File
+
+        private void AddFileButton(object sender, System.Windows.RoutedEventArgs e) {
+            if(TextBoxFileName.Text.Trim().Length == 0) { return; }
+            File = new FileModel(); File.Name = TextBoxFileName.Text;
+            Storage.ListFiles.Add(File); UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
+        }
+
+        private void DeleteFileButton(object sender, System.Windows.RoutedEventArgs e) {
+            if(TextBoxFileName.Text.Trim().Length == 0) { return; }
+            foreach(FileModel file in Storage.ListFiles.ToArray()) { if(file.Name == TextBoxFileName.Text) { Storage.ListFiles.Remove(file); } }
+            UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
+        }
+
+        // Back in Main
+
+        private void BackButton(object sender, System.Windows.RoutedEventArgs e) { OpenStorageGrid.Visibility = Visibility.Collapsed;  mainGrid.Visibility = Visibility; }
+
+        // OpenStorage MouseDoubleClick
+
+        private void DataGridRow_MouseDoubleClick_OpenStorage(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+
+            if(StorageAllDataGrid.SelectedItem.GetType() == typeof(API_Models.FileModel)) {
+                FileModel tempFile = (FileModel)StorageAllDataGrid.SelectedItem;
+                TextBoxFileName.Text = tempFile.Name;
+            }
+
+            if(StorageAllDataGrid.SelectedItem.GetType() == typeof(API_Models.FolderModel)) {
+                FolderModel tempFolder = (FolderModel)StorageAllDataGrid.SelectedItem;
+                TextBoxFolderName.Text = tempFolder.Name;
+            }
+
         }
 
     }

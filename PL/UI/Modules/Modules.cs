@@ -13,7 +13,6 @@ namespace UI.Modules {
             builder.RegisterType<MainWindow>().SingleInstance();
             builder.RegisterType<ContentScene>().SingleInstance();
             builder.RegisterType<StorageScene>().SingleInstance();
-            builder.RegisterType<OpenStorageScene>().SingleInstance();
 
         }
     }

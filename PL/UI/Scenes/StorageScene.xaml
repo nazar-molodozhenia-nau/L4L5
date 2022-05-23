@@ -8,22 +8,25 @@
       d:DesignHeight="680" d:DesignWidth="1280"
       Loaded="StorageScene_Loaded">
 
-    <Grid>
+    <StackPanel x:Name="ListGrid">
 
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+        <Grid x:Name="mainGrid"
+              Height="680">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Vertical" 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" 
                     Grid.Row="1" Grid.RowSpan="1"
                     Grid.Column="0">
 
-            <TextBlock Text="Information About Storage"
+                <TextBlock Text="Information About Storage"
                    Foreground="#FFFFFF"
                    FontSize="18"
                    VerticalAlignment="Bottom"
@@ -31,7 +34,7 @@
                    FontWeight="Bold"
                    Margin="0, 25, 0, 0"/>
 
-            <ComboBox x:Name="ComboBoxStorageSpecificType" 
+                <ComboBox x:Name="ComboBoxStorageSpecificType" 
                       IsEditable="False"
                       materialDesign:HintAssist.Hint="Select a storage"
                       Foreground="#FFFFFF"
@@ -41,9 +44,9 @@
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                       IsReadOnly="True"
                       SelectedItem="{Binding Storage.SpecificType, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}">
-            </ComboBox>
+                </ComboBox>
 
-            <TextBox x:Name="TextBoxOwner"
+                <TextBox x:Name="TextBoxOwner"
                      materialDesign:HintAssist.Hint="Owner"
                      Foreground="#FFFFFF"
                      FontSize="16"
@@ -52,24 +55,24 @@
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      Text="{Binding Storage.Owner, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Button x:Name="ButtonAddStorage"
+                <Button x:Name="ButtonAddStorage"
                     Content="Add Storage"
                     Margin="10"
                     Click="AddStorageButton"/>
 
-            <Button x:Name="ButtonOpenStorage"
+                <Button x:Name="ButtonOpenStorage"
                     Content="Open Storage"
                     Margin="10"
                     Click="OpenStorageButton"/>
-            
-            <Button x:Name="ButtonDeleteStorage"
+
+                <Button x:Name="ButtonDeleteStorage"
                     Content="Delete Storage"
                     Margin="10"
                     Click="DeleteStorageButton"/>
 
-        </StackPanel>
+            </StackPanel>
 
-        <DataGrid x:Name="StorageDataGrid" 
+            <DataGrid x:Name="StorageDataGrid" 
                   AutoGenerateColumns="False" 
                   CanUserResizeRows="True" 
                   SelectionMode="Single" 
@@ -82,20 +85,138 @@
                   SelectedValuePath="Id"
                   SelectedValue="{Binding SelectedId}">
 
-            <DataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
-                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
-                    <Setter Property="Margin" Value="10, 0, 0, 0"/>
-                </Style>
-            </DataGrid.ItemContainerStyle>
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                        <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                        <Setter Property="Margin" Value="10, 0, 0, 0"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Owner" Width="200" Binding="{Binding Owner}"/>
-                <DataGridTextColumn Header="Storage" Width="200" Binding="{Binding SpecificType}"/>
-            </DataGrid.Columns>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Owner" Width="200" Binding="{Binding Owner}"/>
+                    <DataGridTextColumn Header="Storage" Width="200" Binding="{Binding SpecificType}"/>
+                    <DataGridTextColumn Header="Storage" Width="200" Binding="{Binding Id}"/>
+                </DataGrid.Columns>
 
-        </DataGrid>
-        
-    </Grid>
+            </DataGrid>
+
+        </Grid>
+
+        <Grid x:Name="OpenStorageGrid"
+              Visibility="Collapsed"
+              Height="680">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" 
+                    Grid.Row="0" Grid.RowSpan="1"
+                    Grid.Column="0">
+
+                <TextBlock x:Name="TextBlockOwner"
+                           Text="{Binding Storage.Owner}"
+                       Foreground="#FFFFFF"
+                       FontSize="18"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"
+                       Margin="0, 25, 0, 0"/>
+
+                <TextBlock x:Name="TextBlockSpecificType"
+                       Text="{Binding Storage.SpecificType}"
+                       Foreground="#FFFFFF"
+                       FontSize="18"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"
+                       Margin="0, 25, 0, 0"/>
+
+                <TextBox x:Name="TextBoxFolderName"
+                     materialDesign:HintAssist.Hint="Folder Name"
+                     Foreground="#FFFFFF"
+                     FontSize="16"
+                     FontWeight="Medium"
+                     Margin="10 25 10 20"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding Folder.Name, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button x:Name="ButtonAddFolder"
+                    Content="Add Folder"
+                    Margin="10"
+                    Click="AddFolderButton"/>
+
+                <Button x:Name="ButtonOpenFolder"
+                    Content="Open Folder"
+                    Margin="10"
+                    Click="OpenFolderButton"/>
+
+                <Button x:Name="ButtonDeleteFolder"
+                    Content="Delete Folder"
+                    Margin="10"
+                    Click="DeleteFolderButton"/>
+
+                <TextBox x:Name="TextBoxFileName"
+                     materialDesign:HintAssist.Hint="File Name"
+                     Foreground="#FFFFFF"
+                     FontSize="16"
+                     FontWeight="Medium"
+                     Margin="10 25 10 20"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding File.Name, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button x:Name="ButtonAddFile"
+                    Content="Add File"
+                    Margin="10"
+                    Click="AddFileButton"/>
+
+                <Button x:Name="ButtonDeleteFile"
+                    Content="Delete File"
+                    Margin="10"
+                    Click="DeleteFileButton"/>
+
+                <Button x:Name="ButtonBack"
+                    Content="Back"
+                    Margin="10, 75, 10, 10"
+                    Click="BackButton"/>
+
+            </StackPanel>
+
+            <DataGrid x:Name="StorageAllDataGrid" 
+                  AutoGenerateColumns="False"
+                  CanUserResizeRows="True" 
+                  SelectionMode="Single" 
+                  CanUserAddRows="False" 
+                  CanUserDeleteRows="False" 
+                  IsReadOnly="True" 
+                  SelectionUnit="FullRow"
+                  Grid.Row="0" Grid.Column="1"
+                  Margin="0 25 10 10"
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding SelectedId}">
+
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                        <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick_OpenStorage"/>
+                        <Setter Property="Margin" Value="10, 0, 0, 0"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
+                    <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+          
+        </Grid>
+
+    </StackPanel>
 
 </UserControl>

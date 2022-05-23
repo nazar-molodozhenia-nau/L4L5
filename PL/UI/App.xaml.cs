@@ -26,7 +26,6 @@ namespace UI {
 
                 scope.Resolve<ContentScene>();
                 scope.Resolve<StorageScene>();
-                scope.Resolve<OpenStorageScene>();
 
                 mainWindow.Show();
                 base.OnStartup(e);

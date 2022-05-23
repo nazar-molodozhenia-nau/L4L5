@@ -100,9 +100,6 @@
     <Compile Include="Scenes\ContentScene.xaml.cs">
       <DependentUpon>ContentScene.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Scenes\OpenStorageScene.xaml.cs">
-      <DependentUpon>OpenStorageScene.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Scenes\StorageScene.xaml.cs">
       <DependentUpon>StorageScene.xaml</DependentUpon>
     </Compile>
@@ -119,10 +116,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Scenes\ContentScene.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Scenes\OpenStorageScene.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
