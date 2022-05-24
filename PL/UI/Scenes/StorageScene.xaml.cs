@@ -23,15 +23,15 @@ using API_Models;
 using System.Text.RegularExpressions;
 
 namespace UI.Scenes {
-    public partial class StorageScene : UserControl {
+    public partial class StorageScene : UserControl, INotifyPropertyChanged {
 
         // Scenes
 
 
         // IController
-        private readonly IController<StorageModel> _storageController;
-        private readonly IController<FolderModel> _folderController;
-        private readonly IController<FileModel> _fileController;
+        private IController<StorageModel> _storageController { get; }
+        private IController<FolderModel> _folderController { get; }
+        private IController<FileModel> _fileController { get; }
 
         // Models
         public StorageModel Storage { get; set; }
@@ -95,12 +95,22 @@ namespace UI.Scenes {
             List<FolderModel> ListFolder = _folderController.GetAll();
             List<FileModel> ListFile = _fileController.GetAll();
             if(Depth == 1) {
-                foreach(FileModel file in ListFile) { if(file.IdStorageParent == SaveParentId) { ListAll.Add(file); } }
-                foreach(FolderModel folder in ListFolder) { if(folder.IdStorageParent == SaveParentId) { ListAll.Add(folder); } }
+                foreach(FileModel file in ListFile) { if(file.IdStorageParent == SaveParentId && file.OrDirectStorageParent == true) { ListAll.Add(file); } }
+                foreach(FolderModel folder in ListFolder) { if(folder.IdStorageParent == SaveParentId && folder.OrDirectStorageParent == true) { ListAll.Add(folder); } }
             } else {
                 foreach(FileModel file in ListFile) { if(file.IdFolderParent == SaveParentId) { ListAll.Add(file); } }
                 foreach(FolderModel folder in ListFolder) { if(folder.IdFolderParent == SaveParentId) { ListAll.Add(folder); } }
             }
+            StorageAllDataGrid.ItemsSource = ListAll;
+        }
+
+        private void UpdateDataGrid_Shearch() {
+            if(string.IsNullOrWhiteSpace(SearchValue)) { UpdateDataGrid_OpenStorage(); return; }
+            ArrayList ListAll = new ArrayList();
+            List<FolderModel> ListFolder = _folderController.GetAll();
+            List<FileModel> ListFile = _fileController.GetAll();
+            foreach(FileModel file in ListFile) { if(file.Name.ToLower().Contains(SearchValue.ToLower()) && file.IdStorageParent == Storage.Id) { ListAll.Add(file); } }
+            foreach(FolderModel folder in ListFolder) { if(folder.Name.ToLower().Contains(SearchValue.ToLower()) && folder.IdStorageParent == Storage.Id) { ListAll.Add(folder); } }
             StorageAllDataGrid.ItemsSource = ListAll;
         }
 
@@ -158,12 +168,13 @@ namespace UI.Scenes {
         private void AddFolderButton(object sender, System.Windows.RoutedEventArgs e) {
             if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
             if(Depth == 1) { 
-                Folder.IdStorageParent = (int)SaveParentId; Folder.IdFolderParent = -1;
+                Folder.IdStorageParent = (int)SaveParentId;
                 Folder.Path = Folder.Name;
-            }
-            else {
-                Folder.IdStorageParent = -1; Folder.IdFolderParent = (int)SaveParentId;
+                Folder.OrDirectStorageParent = true;
+            } else {
+                Folder.IdStorageParent = Storage.Id; Folder.IdFolderParent = (int)SaveParentId;
                 Folder.Path = SaveParentPath + "/" + Folder.Name;
+                Folder.OrDirectStorageParent = false;
             }
             Folder.Name = TextBoxFolderName.Text;
             _folderController.Add(Folder);
@@ -194,12 +205,17 @@ namespace UI.Scenes {
 
         private void AddFileButton(object sender, System.Windows.RoutedEventArgs e) {
             if(ComboBoxStorageType.SelectedItem == null || TextBoxFileName.Text.Trim().Length == 0) { return; }
-            if(Depth == 1) { File.IdStorageParent = (int)SaveParentId; File.IdFolderParent = -1; } 
-            else { File.IdStorageParent = -1; File.IdFolderParent = (int)SaveParentId; }
             File.Name = TextBoxFileName.Text;
             File.Type = File.Name + "." + Convert.ToString(ComboBoxStorageType.SelectedItem);
-            if(Depth == 1) { File.Path = Convert.ToString(File.Type); }
-            else { File.Path = SaveParentPath + "/" + Convert.ToString(File.Type); }
+            if(Depth == 1) { 
+                File.IdStorageParent = (int)SaveParentId;
+                File.Path = Convert.ToString(File.Type);
+                File.OrDirectStorageParent = true;
+            } else {
+                File.IdStorageParent = Storage.Id; File.IdFolderParent = (int)SaveParentId;
+                File.Path = SaveParentPath + "/" + Convert.ToString(File.Type);
+                File.OrDirectStorageParent = false;
+            }
             _fileController.Add(File);
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
@@ -219,7 +235,7 @@ namespace UI.Scenes {
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
 
-        private void BackButton_MainMenu(object sender, System.Windows.RoutedEventArgs e) { Depth = 0; OpenStorageGrid.Visibility = Visibility.Collapsed; mainGrid.Visibility = Visibility; }
+        private void BackButton_MainMenu(object sender, System.Windows.RoutedEventArgs e) { Depth = 0; ButtonBack_MovementInStorage.Visibility = Visibility.Hidden; OpenStorageGrid.Visibility = Visibility.Collapsed; mainGrid.Visibility = Visibility; }
 
         // OpenStorage MouseDoubleClick
 
@@ -246,6 +262,21 @@ namespace UI.Scenes {
                 TextBoxFolderName.Text = tempFolder.Name;
             }
 
+        }
+
+        // Search
+
+        private string searchValue;
+
+        public string SearchValue {
+            get => searchValue;
+            set { if(searchValue != value) { searchValue = value; OnPropertyChanged(); UpdateDataGrid_Shearch(); } }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged = null;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

@@ -95,9 +95,11 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Owner" Width="200" Binding="{Binding Owner}"/>
                     <DataGridTextColumn Header="Storage" Width="200" Binding="{Binding SpecificType}"/>
+                    
                     <!--
                     <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
-                    -->                    
+                    -->                                 
+                    
                 </DataGrid.Columns>
 
             </DataGrid>
@@ -207,6 +209,19 @@
 
             </StackPanel>
 
+            <TextBox x:Name="SearchBox" 
+                 Grid.Row="0" Grid.Column="1"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Top"
+                 FontSize="16"
+                 FontWeight="Medium"
+                 Foreground="#FFFFFF"
+                 Margin="0 25 0 0"
+                 Width="500"
+                 Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                 materialDesign:HintAssist.Hint="Пошук"/>
+            
             <DataGrid x:Name="StorageAllDataGrid" 
                   AutoGenerateColumns="False"
                   CanUserResizeRows="True" 
@@ -216,7 +231,7 @@
                   IsReadOnly="True" 
                   SelectionUnit="FullRow"
                   Grid.Row="0" Grid.Column="1"
-                  Margin="0 25 10 10"
+                  Margin="0 75 10 10"
                   SelectedValuePath="Id"
                   SelectedValue="{Binding SelectedIdNewTable}">
 
@@ -230,12 +245,14 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
-                    
+
                     <!--
                     <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="IdStorageParent" Width="200" Binding="{Binding IdStorageParent}"/>
                     <DataGridTextColumn Header="IdFolderParent" Width="200" Binding="{Binding IdFolderParent}"/>
-                    -->                   
+                    <DataGridTextColumn Header="OrDirectStorageParent" Width="200" Binding="{Binding OrDirectStorageParent}"/>
+                    -->
+                    
                     <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
                 </DataGrid.Columns>
 
