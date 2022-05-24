@@ -2,36 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using System.Data.Entity;
+using System.Text.RegularExpressions;
 
 using API_Controllers;
 using API_Models;
-using System.Text.RegularExpressions;
 
 namespace UI.Scenes {
     public partial class StorageScene : UserControl, INotifyPropertyChanged {
 
-        // Scenes
-
-
         // IController
-        private IController<StorageModel> _storageController { get; }
-        private IController<FolderModel> _folderController { get; }
-        private IController<FileModel> _fileController { get; }
+        private readonly IController<StorageModel> _storageController;
+        private readonly IController<FolderModel> _folderController;
+        private readonly IController<FileModel> _fileController;
 
         // Models
         public StorageModel Storage { get; set; }
@@ -46,9 +31,6 @@ namespace UI.Scenes {
 
             // Initialize
             InitializeComponent();
-
-            // Scenes
-
 
             // IController
             _storageController = storageController;
@@ -195,6 +177,7 @@ namespace UI.Scenes {
             }
         }
 
+        // The folder and file hierarchy will be broken if you delete the folder through search.
         private void DeleteFolderButton(object sender, System.Windows.RoutedEventArgs e) {
             if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
             if(SelectedIdNewTable != null) { _folderController.Remove((int)SelectedIdNewTable); }

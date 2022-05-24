@@ -9,7 +9,7 @@ namespace DAL_Repositories {
 
         TEntity GetById(int id);
         void Remove(int id);
-        
+
         List<TEntity> GetAll();
 
     }

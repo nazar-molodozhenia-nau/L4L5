@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using UI.Scenes;
 
@@ -43,9 +31,9 @@ namespace UI {
 
         // Scenes
 
-        private void ContentSceneButton(object sender, RoutedEventArgs e) => WeControlScenes.Content = _contentScene;
+        private void ContentSceneButton(object sender, RoutedEventArgs e) { WeControlScenes.Content = _contentScene; }
 
-        private void StorageSceneButton(object sender, RoutedEventArgs e) => WeControlScenes.Content = _storageScene;
+        private void StorageSceneButton(object sender, RoutedEventArgs e) { WeControlScenes.Content = _storageScene; }
 
     }
 }

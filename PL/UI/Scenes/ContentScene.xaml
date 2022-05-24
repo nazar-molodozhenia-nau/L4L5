@@ -7,11 +7,4 @@
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1280"
       Loaded="ContentScene_Loaded">
-
-    <Grid>
-
-
-
-    </Grid>
-
 </UserControl>
