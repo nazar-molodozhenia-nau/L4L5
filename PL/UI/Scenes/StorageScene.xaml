@@ -95,9 +95,9 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Owner" Width="200" Binding="{Binding Owner}"/>
                     <DataGridTextColumn Header="Storage" Width="200" Binding="{Binding SpecificType}"/>
-                    
+                    <!--
                     <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
-                    
+                    -->                    
                 </DataGrid.Columns>
 
             </DataGrid>
@@ -231,10 +231,11 @@
                     <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
                     
+                    <!--
                     <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="IdStorageParent" Width="200" Binding="{Binding IdStorageParent}"/>
                     <DataGridTextColumn Header="IdFolderParent" Width="200" Binding="{Binding IdFolderParent}"/>
-                    
+                    -->                   
                     <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
                 </DataGrid.Columns>
 

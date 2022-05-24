@@ -132,7 +132,7 @@ namespace UI.Scenes {
                 ControllerId = new List<int>();
                 // First: ControllerId[0] = IdStorageParent.
                 ControllerId.Add((int)SaveParentId);
-                //SaveParentPath = "";
+                SaveParentPath = "";
                 UpdateTextBlock(); UpdateDataGrid_OpenStorage();
             }
         }
@@ -157,10 +157,15 @@ namespace UI.Scenes {
 
         private void AddFolderButton(object sender, System.Windows.RoutedEventArgs e) {
             if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
-            if(Depth == 1) { Folder.IdStorageParent = (int)SaveParentId; Folder.IdFolderParent = -1; }
-            else { Folder.IdStorageParent = -1; Folder.IdFolderParent = (int)SaveParentId; }
+            if(Depth == 1) { 
+                Folder.IdStorageParent = (int)SaveParentId; Folder.IdFolderParent = -1;
+                Folder.Path = Folder.Name;
+            }
+            else {
+                Folder.IdStorageParent = -1; Folder.IdFolderParent = (int)SaveParentId;
+                Folder.Path = SaveParentPath + "/" + Folder.Name;
+            }
             Folder.Name = TextBoxFolderName.Text;
-            //Folder.Path = SaveParentPath + "/" + Folder.Name;
             _folderController.Add(Folder);
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
@@ -172,7 +177,8 @@ namespace UI.Scenes {
                 SaveParentId = Folder.Id;
                 Depth++;
                 ControllerId.Add((int)SaveParentId);
-                //SaveParentPath = Folder.Path;
+                var buffer = _folderController.GetById((int)SelectedIdNewTable);
+                SaveParentPath = buffer.Path;
                 ButtonBack_MovementInStorage.Visibility = Visibility;
                 UpdateDataGrid_OpenStorage();
             }
@@ -191,9 +197,9 @@ namespace UI.Scenes {
             if(Depth == 1) { File.IdStorageParent = (int)SaveParentId; File.IdFolderParent = -1; } 
             else { File.IdStorageParent = -1; File.IdFolderParent = (int)SaveParentId; }
             File.Name = TextBoxFileName.Text;
-            //if(SaveParentPath == "") { File.Path = File.Name; } 
-            //else { File.Path = SaveParentPath + "/" + File.Name; }
             File.Type = File.Name + "." + Convert.ToString(ComboBoxStorageType.SelectedItem);
+            if(Depth == 1) { File.Path = Convert.ToString(File.Type); }
+            else { File.Path = SaveParentPath + "/" + Convert.ToString(File.Type); }
             _fileController.Add(File);
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
