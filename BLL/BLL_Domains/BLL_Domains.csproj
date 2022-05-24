@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domains\AdditionalParametersForDomains\TypesOfFile.cs" />
     <Compile Include="Domains\AdditionalParametersForDomains\TypesOfStorage.cs" />
     <Compile Include="Domains\Domains\FileDomain.cs" />
     <Compile Include="Domains\Domains\FolderDomain.cs" />

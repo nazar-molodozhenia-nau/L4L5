@@ -20,6 +20,7 @@ using System.Data.Entity;
 
 using API_Controllers;
 using API_Models;
+using System.Text.RegularExpressions;
 
 namespace UI.Scenes {
     public partial class StorageScene : UserControl {
@@ -61,6 +62,7 @@ namespace UI.Scenes {
 
             // Enums
             foreach(var category in Enum.GetValues(typeof(SpecificType))) { ComboBoxStorageSpecificType.Items.Add(category.ToString()); }
+            foreach(var category in Enum.GetValues(typeof(TypeFile))) { ComboBoxStorageType.Items.Add(category.ToString()); }
 
             // DB
             DataContext = this;
@@ -72,7 +74,7 @@ namespace UI.Scenes {
         public int? SelectedId { get; set; }
         public int? SelectedIdNewTable { get; set; }
         public int? SaveParentId { get; set; }
-        public int? SaveTapId { get; set; }
+        public string SaveParentPath { get; set; }
 
         private void StorageScene_Loaded(object sender, System.Windows.RoutedEventArgs e) { }
 
@@ -100,7 +102,7 @@ namespace UI.Scenes {
         // Clear
 
         private void ClearFields() { ComboBoxStorageSpecificType.SelectedIndex = 0; TextBoxOwner.Clear(); }
-        private void ClearFields_OpenStorage() { TextBoxFolderName.Clear(); TextBoxFileName.Clear(); }
+        private void ClearFields_OpenStorage() { ComboBoxStorageType.SelectedIndex = 0; TextBoxFolderName.Clear(); TextBoxFileName.Clear(); }
 
         // Button
 
@@ -124,6 +126,7 @@ namespace UI.Scenes {
                 SaveParentId = Storage.Id;
                 Depth = 1;
                 ControllerId = new List<int>();
+                //SaveParentPath = "";
                 ControllerId.Add((int)SaveParentId);
                 UpdateTextBlock(); UpdateDataGrid_OpenStorage();
             }
@@ -139,7 +142,7 @@ namespace UI.Scenes {
 
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) {
             StorageModel temp = (StorageModel)StorageDataGrid.SelectedItem;
-            foreach(SpecificType specificType in Search.GetEnumValues<SpecificType>()) {
+            foreach(SpecificType specificType in SearchSpecificType.GetEnumValues<SpecificType>()) {
                 if(specificType == temp.SpecificType) { ComboBoxStorageSpecificType.SelectedIndex = (int)specificType; }
             }
             TextBoxOwner.Text = temp.Owner;
@@ -153,6 +156,7 @@ namespace UI.Scenes {
             if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
             Folder.IdParent = (int)SaveParentId;
             Folder.Name = TextBoxFolderName.Text;
+            //Folder.Path = SaveParentPath + "/" + Folder.Name;
             _folderController.Add(Folder);
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
@@ -165,6 +169,7 @@ namespace UI.Scenes {
                 // Set SaveParentId and/or SaveTapId && Depth
                 SaveParentId = Folder.Id;
                 Depth++;
+                //SaveParentPath = Folder.Path;
                 ControllerId.Add((int)SaveParentId);
                 ButtonBack_MovementInStorage.Visibility = Visibility;
                 UpdateDataGrid_OpenStorage();
@@ -182,15 +187,18 @@ namespace UI.Scenes {
         int CounterFile { get; set; } = 2000;
 
         private void AddFileButton(object sender, System.Windows.RoutedEventArgs e) {
-            if(TextBoxFileName.Text.Trim().Length == 0) { return; }
+            if(ComboBoxStorageType.SelectedItem == null || TextBoxFileName.Text.Trim().Length == 0) { return; }
             File.IdParent = (int)SaveParentId;
             File.Name = TextBoxFileName.Text;
+            //if(SaveParentPath == "") { File.Path = File.Name; } 
+            //else { File.Path = SaveParentPath + "/" + File.Name; }
+            File.Type = File.Name + "." + Convert.ToString(ComboBoxStorageType.SelectedItem);
             _fileController.Add(File);
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
 
         private void DeleteFileButton(object sender, System.Windows.RoutedEventArgs e) {
-            if(TextBoxFileName.Text.Trim().Length == 0) { return; }
+            if(ComboBoxStorageType.SelectedItem == null || TextBoxFileName.Text.Trim().Length == 0) { return; }
             if(SelectedIdNewTable != null) { _fileController.Remove((int)SelectedIdNewTable); }
             UpdateDataGrid_OpenStorage(); ClearFields_OpenStorage();
         }
@@ -213,6 +221,17 @@ namespace UI.Scenes {
             if(StorageAllDataGrid.SelectedItem.GetType() == typeof(API_Models.FileModel)) {
                 FileModel tempFile = (FileModel)StorageAllDataGrid.SelectedItem;
                 TextBoxFileName.Text = tempFile.Name;
+
+                Regex firstRegex = new Regex("\\..+");
+                Regex secondRegex = new Regex("[^\\.]+");
+                MatchCollection firstMatches = firstRegex.Matches(tempFile.Type);
+                string bufferType = Convert.ToString(firstMatches[0]);
+                MatchCollection secondMatches = secondRegex.Matches(bufferType);
+                bufferType = Convert.ToString(secondMatches[0]);
+
+                foreach(TypeFile type in SearchTypeFile.GetEnumValues<TypeFile>()) {
+                    if(Convert.ToString(type) == bufferType) { ComboBoxStorageType.SelectedIndex = (int)type; }
+                }
             }
 
             if(StorageAllDataGrid.SelectedItem.GetType() == typeof(API_Models.FolderModel)) {

@@ -95,7 +95,9 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Owner" Width="200" Binding="{Binding Owner}"/>
                     <DataGridTextColumn Header="Storage" Width="200" Binding="{Binding SpecificType}"/>
+                    
                     <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
+                    
                 </DataGrid.Columns>
 
             </DataGrid>
@@ -135,14 +137,14 @@
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
                        FontWeight="Bold"
-                       Margin="0, 25, 0, 0"/>
+                       Margin="0, 15, 0, 0"/>
 
                 <TextBox x:Name="TextBoxFolderName"
                      materialDesign:HintAssist.Hint="Folder Name"
                      Foreground="#FFFFFF"
                      FontSize="16"
                      FontWeight="Medium"
-                     Margin="10 25 10 20"
+                     Margin="10 15 10 15"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      Text="{Binding Folder.Name, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -166,10 +168,22 @@
                      Foreground="#FFFFFF"
                      FontSize="16"
                      FontWeight="Medium"
-                     Margin="10 25 10 20"
+                     Margin="10 15 10 15"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      Text="{Binding File.Name, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}"/>
 
+                <ComboBox x:Name="ComboBoxStorageType" 
+                      IsEditable="False"
+                      materialDesign:HintAssist.Hint="Select a type file"
+                      Foreground="#FFFFFF"
+                      Margin="10 0 10 20"
+                      FontSize="16"
+                      FontWeight="Medium"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                      IsReadOnly="True"
+                      SelectedItem="{Binding File.Type, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+                
                 <Button x:Name="ButtonAddFile"
                     Content="Add File"
                     Margin="10"
@@ -182,7 +196,7 @@
 
                 <Button x:Name="ButtonBack_MovementInStorage"
                         Content="Back"
-                        Margin="10, 40, 10, 10"
+                        Margin="10"
                         Click="BackButton__MovementInStorage"
                         Visibility="Hidden"/>
                 
@@ -216,10 +230,10 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
-                    <!--
+                    
                     <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="IdParent" Width="200" Binding="{Binding IdParent}"/>
-                    -->
+                    
                     <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
                 </DataGrid.Columns>
 

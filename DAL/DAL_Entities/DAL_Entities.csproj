@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalParametersForEntities\TypesOfFile.cs" />
     <Compile Include="AdditionalParametersForEntities\TypesOfStorage.cs" />
     <Compile Include="Entities\File.cs" />
     <Compile Include="Entities\Folder.cs" />
