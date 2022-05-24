@@ -180,10 +180,16 @@
                     Margin="10"
                     Click="DeleteFileButton"/>
 
-                <Button x:Name="ButtonBack"
-                    Content="Back"
-                    Margin="10, 75, 10, 10"
-                    Click="BackButton"/>
+                <Button x:Name="ButtonBack_MovementInStorage"
+                        Content="Back"
+                        Margin="10, 40, 10, 10"
+                        Click="BackButton__MovementInStorage"
+                        Visibility="Hidden"/>
+                
+                <Button x:Name="ButtonBack_MainMenu"
+                    Content="Main Menu"
+                    Margin="10"
+                    Click="BackButton_MainMenu"/>
 
             </StackPanel>
 
@@ -210,8 +216,10 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
+                    <!--
                     <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="IdParent" Width="200" Binding="{Binding IdParent}"/>
+                    -->
                     <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
                 </DataGrid.Columns>
 
