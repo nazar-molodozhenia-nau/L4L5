@@ -94,8 +94,13 @@ namespace UI.Scenes {
             ArrayList ListAll = new ArrayList();
             List<FolderModel> ListFolder = _folderController.GetAll();
             List<FileModel> ListFile = _fileController.GetAll();
-            foreach(FileModel file in ListFile) { if(file.IdParent == SaveParentId) { ListAll.Add(file); } }
-            foreach(FolderModel folder in ListFolder) { if(folder.IdParent == SaveParentId) { ListAll.Add(folder); } }
+            if(Depth == 1) {
+                foreach(FileModel file in ListFile) { if(file.IdStorageParent == SaveParentId) { ListAll.Add(file); } }
+                foreach(FolderModel folder in ListFolder) { if(folder.IdStorageParent == SaveParentId) { ListAll.Add(folder); } }
+            } else {
+                foreach(FileModel file in ListFile) { if(file.IdFolderParent == SaveParentId) { ListAll.Add(file); } }
+                foreach(FolderModel folder in ListFolder) { if(folder.IdFolderParent == SaveParentId) { ListAll.Add(folder); } }
+            }
             StorageAllDataGrid.ItemsSource = ListAll;
         }
 
@@ -122,12 +127,12 @@ namespace UI.Scenes {
             if(SelectedId != null) {
                 Storage.Id = (int)SelectedId; _storageController.Update(Storage);
                 mainGrid.Visibility = Visibility.Collapsed; OpenStorageGrid.Visibility = Visibility;
-                // Set SaveParentId and/or SaveTapId && Depth
                 SaveParentId = Storage.Id;
                 Depth = 1;
                 ControllerId = new List<int>();
-                //SaveParentPath = "";
+                // First: ControllerId[0] = IdStorageParent.
                 ControllerId.Add((int)SaveParentId);
+                //SaveParentPath = "";
                 UpdateTextBlock(); UpdateDataGrid_OpenStorage();
             }
         }
@@ -150,11 +155,10 @@ namespace UI.Scenes {
 
         // Folder
 
-        int CounterFolder { get; set; }
-
         private void AddFolderButton(object sender, System.Windows.RoutedEventArgs e) {
             if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
-            Folder.IdParent = (int)SaveParentId;
+            if(Depth == 1) { Folder.IdStorageParent = (int)SaveParentId; Folder.IdFolderParent = -1; }
+            else { Folder.IdStorageParent = -1; Folder.IdFolderParent = (int)SaveParentId; }
             Folder.Name = TextBoxFolderName.Text;
             //Folder.Path = SaveParentPath + "/" + Folder.Name;
             _folderController.Add(Folder);
@@ -164,13 +168,11 @@ namespace UI.Scenes {
         private void OpenFolderButton(object sender, RoutedEventArgs e) {
             if(TextBoxFolderName.Text.Trim().Length == 0) { return; }
             if(SelectedIdNewTable != null) {
-                // Id is Not Set
-                //Folder.Id = (int)SelectedIdNewTable + 1000; _folderController.Update(Folder);
-                // Set SaveParentId and/or SaveTapId && Depth
+                Folder.Id = (int)SelectedIdNewTable; _folderController.Update(Folder);
                 SaveParentId = Folder.Id;
                 Depth++;
-                //SaveParentPath = Folder.Path;
                 ControllerId.Add((int)SaveParentId);
+                //SaveParentPath = Folder.Path;
                 ButtonBack_MovementInStorage.Visibility = Visibility;
                 UpdateDataGrid_OpenStorage();
             }
@@ -184,11 +186,10 @@ namespace UI.Scenes {
 
         // File
 
-        int CounterFile { get; set; } = 2000;
-
         private void AddFileButton(object sender, System.Windows.RoutedEventArgs e) {
             if(ComboBoxStorageType.SelectedItem == null || TextBoxFileName.Text.Trim().Length == 0) { return; }
-            File.IdParent = (int)SaveParentId;
+            if(Depth == 1) { File.IdStorageParent = (int)SaveParentId; File.IdFolderParent = -1; } 
+            else { File.IdStorageParent = -1; File.IdFolderParent = (int)SaveParentId; }
             File.Name = TextBoxFileName.Text;
             //if(SaveParentPath == "") { File.Path = File.Name; } 
             //else { File.Path = SaveParentPath + "/" + File.Name; }

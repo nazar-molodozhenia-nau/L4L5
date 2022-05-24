@@ -2,7 +2,8 @@
     public class File {
 
         public int Id { get; set; }
-        public int IdParent { get; set; }
+        public int IdFolderParent { get; set; }
+        public int IdStorageParent { get; set; }
 
         public string Type { get; set;}
 

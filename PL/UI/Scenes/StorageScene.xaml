@@ -232,7 +232,8 @@
                     <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
                     
                     <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="IdParent" Width="200" Binding="{Binding IdParent}"/>
+                    <DataGridTextColumn Header="IdStorageParent" Width="200" Binding="{Binding IdStorageParent}"/>
+                    <DataGridTextColumn Header="IdFolderParent" Width="200" Binding="{Binding IdFolderParent}"/>
                     
                     <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
                 </DataGrid.Columns>
