@@ -111,7 +111,7 @@ namespace UI.Scenes {
             UpdateDataGrid(); ClearFields();
         }
 
-        List<int> ControllerId;
+        private List<int> ControllerId;
         int Depth { get; set; } = 0;
 
         private void OpenStorageButton(object sender, RoutedEventArgs e) {

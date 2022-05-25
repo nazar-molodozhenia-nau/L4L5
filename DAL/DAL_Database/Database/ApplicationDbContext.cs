@@ -5,7 +5,7 @@ using DAL_Entities;
 namespace DAL_Database {
     public class ApplicationDbContext : DbContext {
         
-        public ApplicationDbContext() : base("CL") { 
+        public ApplicationDbContext() : base("cl") {
             Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
             Configuration.LazyLoadingEnabled = false; 
         }

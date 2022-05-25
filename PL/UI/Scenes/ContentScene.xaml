@@ -7,4 +7,268 @@
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1280"
       Loaded="ContentScene_Loaded">
+
+    <StackPanel x:Name="ListGrid">
+
+        <Grid x:Name="MainGrid"
+              Height="680">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="540"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Zero -->
+            
+            <StackPanel  Orientation="Vertical"
+                         Grid.Row="0" Grid.Column="0">
+
+                <StackPanel x:Name="stackPanel_Disk" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 , 25, 0, 0">
+
+                    <RadioButton x:Name="RadioButton_Disk_C" GroupName="Disk" Content="C" IsChecked="True"
+                                 Foreground="#FFFFFF"
+                                 FontSize="16"
+                                 FontWeight="Medium"
+                                 Margin="0, 0, 20, 0"/>
+
+                    <RadioButton x:Name="RadioButton_Disk_D" GroupName="Disk" Content="D"
+                                 Foreground="#FFFFFF"
+                                 FontSize="16"
+                                 FontWeight="Medium"
+                                 Margin="20, 0, 0, 0"/>
+                
+                </StackPanel>
+
+            <TextBox x:Name="TextBoxFolderName"
+                     materialDesign:HintAssist.Hint="Folder Name"
+                     Foreground="#FFFFFF"
+                     FontSize="16"
+                     FontWeight="Medium"
+                     Margin="10 25 10 15"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding Folder.Name, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button x:Name="ButtonAddFolder"
+                    Content="Add Folder"
+                    Margin="10"
+                    Click="AddFolderButton"/>
+
+                <Button x:Name="ButtonOpenFolder"
+                    Content="Open Folder"
+                    Margin="10"
+                    Click="OpenFolderButton"/>
+
+                <Button x:Name="ButtonDeleteFolder"
+                    Content="Delete Folder"
+                    Margin="10"
+                    Click="DeleteFolderButton"/>
+
+                <TextBox x:Name="TextBoxFileName"
+                     materialDesign:HintAssist.Hint="File Name"
+                     Foreground="#FFFFFF"
+                     FontSize="16"
+                     FontWeight="Medium"
+                     Margin="10 15 10 15"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding File.Name, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}"/>
+
+                <ComboBox x:Name="ComboBoxStorageType" 
+                      IsEditable="False"
+                      materialDesign:HintAssist.Hint="Select a type file"
+                      Foreground="#FFFFFF"
+                      Margin="10 0 10 20"
+                      FontSize="16"
+                      FontWeight="Medium"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                      IsReadOnly="True"
+                      SelectedItem="{Binding File.Type, ValidatesOnExceptions=True , UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+
+                <Button x:Name="ButtonAddFile"
+                    Content="Add File"
+                    Margin="10"
+                    Click="AddFileButton"/>
+
+                <Button x:Name="ButtonDeleteFile"
+                    Content="Delete File"
+                    Margin="10"
+                    Click="DeleteFileButton"/>
+
+            </StackPanel>
+
+            <!-- First -->
+
+            <StackPanel Orientation="Vertical" 
+                        Grid.Row="0" Grid.Column="1">
+
+                <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
+                    
+                    <TextBlock x:Name="TextBlock_C"
+                            Text="Disk C"
+                            Foreground="#FFFFFF"
+                            FontSize="16"
+                            VerticalAlignment="Top"
+                            FontWeight="Bold"
+                            Margin="55, 0, 0, 0"/>
+                
+                    <TextBox x:Name="SearchBox_C" 
+                            Grid.Row="0" Grid.Column="1"
+                            VerticalAlignment="Top"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="#FFFFFF"
+                            Margin="50, 0, 0, 0"
+                            Width="350"
+                            Text="{Binding SearchValue_C, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            materialDesign:HintAssist.Hint="Пошук"/>
+                    
+                </StackPanel>
+                
+                <DataGrid x:Name="DataGrid_C" 
+                    AutoGenerateColumns="False"
+                    CanUserResizeRows="True" 
+                    SelectionMode="Single" 
+                    CanUserAddRows="False" 
+                    CanUserDeleteRows="False" 
+                    IsReadOnly="True" 
+                    SelectionUnit="FullRow"
+                    Margin="0 25 10 0"
+                    SelectedValuePath="Id"
+                    SelectedValue="{Binding SelectedId_C}"
+                    Height="550">
+
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                            <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick_C"/>
+                            <Setter Property="Margin" Value="10, 0, 0, 0"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
+
+                        <!--
+                        <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="IdStorageParent" Width="200" Binding="{Binding IdStorageParent}"/>
+                        <DataGridTextColumn Header="IdFolderParent" Width="200" Binding="{Binding IdFolderParent}"/>
+                        <DataGridTextColumn Header="OrDirectStorageParent" Width="200" Binding="{Binding OrDirectStorageParent}"/>
+                        -->
+                        
+                        <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Button x:Name="ButtonBack_MovementInDisk_C"
+                            Content="Back"
+                            Width="180" Height="40"
+                            Margin="10"
+                            Click="BackButton_MovementInDisk_C"/>
+
+                    <Button x:Name="ButtonBack_Disk_C"
+                            Content="Disk C"
+                            Width="180" Height="40"
+                            Margin="10"
+                            Click="BackButton_Disk_C"/>
+
+                </StackPanel>
+
+            </StackPanel>
+
+            <!-- Second -->
+            
+            <StackPanel Orientation="Vertical" 
+                        Grid.Row="0" Grid.Column="2">
+
+                <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
+
+                    <TextBlock x:Name="TextBlock_D"
+                            Text="Disk D"
+                            Foreground="#FFFFFF"
+                            FontSize="16"
+                            VerticalAlignment="Top"
+                            FontWeight="Bold"
+                            Margin="55, 0, 0, 0"/>
+
+                    <TextBox x:Name="SearchBox_D" 
+                            Grid.Row="0" Grid.Column="1"
+                            VerticalAlignment="Top"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="#FFFFFF"
+                            Margin="50, 0, 0, 0"
+                            Width="350"
+                            Text="{Binding SearchValue_D, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            materialDesign:HintAssist.Hint="Пошук"/>
+                    
+                </StackPanel>
+
+                <DataGrid x:Name="DataGrid_D" 
+                    AutoGenerateColumns="False"
+                    CanUserResizeRows="True" 
+                    SelectionMode="Single" 
+                    CanUserAddRows="False" 
+                    CanUserDeleteRows="False" 
+                    IsReadOnly="True" 
+                    SelectionUnit="FullRow"
+                    Margin="0 25 10 0"
+                    SelectedValuePath="Id"
+                    SelectedValue="{Binding SelectedId_D}"
+                    Height="550">
+
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                            <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick_D"/>
+                            <Setter Property="Margin" Value="10, 0, 0, 0"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Type}"/>
+
+                        <!--
+                        <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="IdStorageParent" Width="200" Binding="{Binding IdStorageParent}"/>
+                        <DataGridTextColumn Header="IdFolderParent" Width="200" Binding="{Binding IdFolderParent}"/>
+                        <DataGridTextColumn Header="OrDirectStorageParent" Width="200" Binding="{Binding OrDirectStorageParent}"/>
+                        -->
+                        
+                        <DataGridTextColumn Header="Path" Width="200" Binding="{Binding Path}"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Button x:Name="ButtonBack_MovementInDisk_D"
+                            Content="Back"
+                            Margin="10"
+                            Width="180" Height="40"
+                            Click="BackButton_MovementInDisk_D"/>
+
+                    <Button x:Name="ButtonBack_Dick_D"
+                            Content="Disk D"
+                            Margin="10"
+                            Width="180" Height="40"
+                            Click="BackButton_Disk_D"/>
+
+                </StackPanel>
+
+            </StackPanel>
+            
+        </Grid>
+
+    </StackPanel>
+
 </UserControl>
