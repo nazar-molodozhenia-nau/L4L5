@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="API_Modules.ControllerModule">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\ControllerModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="API_Models.FileModel">
+    <Position X="7.5" Y="4.5" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="API_Models.FolderModel">
+    <Position X="1.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="API_Models.StorageModel">
+    <Position X="4.5" Y="4" Width="2.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="SpecificType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="API_Models.ObservableObject" Collapsed="true">
+    <Position X="4.5" Y="3" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="API_Models.SearchTypeFile">
+    <Position X="9.25" Y="3" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="API_Controllers.FileController">
+    <Position X="7.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="API_Controllers.FolderController">
+    <Position X="4.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="API_Controllers.StorageController">
+    <Position X="1.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="API_Controllers.IController&lt;TModel&gt;">
+    <Position X="10.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="API_Models.TypeFile">
+    <Position X="10.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="API_Models.SpecificType" Collapsed="true">
+    <Position X="5" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

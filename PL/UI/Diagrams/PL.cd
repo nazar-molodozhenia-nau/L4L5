@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="UI.Modules.MainModule">
+    <Position X="8" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\Modules.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.Scenes.ContentScene">
+    <Position X="8" Y="1" Width="3.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="_fileController" Type="API_Controllers.IController&lt;TModel&gt;" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.75" Y="2.812" />
+        <Point X="14" Y="2.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.506" Y="0.134" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_folderController" Type="API_Controllers.IController&lt;TModel&gt;" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.75" Y="2" />
+        <Point X="14.375" Y="2" />
+        <Point X="14.375" Y="2.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.742" Y="0.653" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_storageController" Type="API_Controllers.IController&lt;TModel&gt;" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.75" Y="1.438" />
+        <Point X="16.188" Y="1.438" />
+        <Point X="16.188" Y="2.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.124" Y="0.727" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAJACBAAAAYAACgAIAACAAQAkEJkAAYBADAQBiAABxA=</HashCode>
+      <FileName>Scenes\ContentScene.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_fileController" />
+      <Field Name="_folderController" />
+      <Field Name="_storageController" />
+      <Property Name="File" />
+      <Property Name="Folder" />
+      <Property Name="Storage" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Scenes.StorageScene">
+    <Position X="8" Y="4" Width="4" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="_fileController" Type="API_Controllers.IController&lt;TModel&gt;" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12" Y="4.125" />
+        <Point X="12.66" Y="4.125" />
+        <Point X="12.66" Y="4.125" />
+        <Point X="14" Y="4.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.465" Y="0.128" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_folderController" Type="API_Controllers.IController&lt;TModel&gt;" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12" Y="5" />
+        <Point X="14.438" Y="5" />
+        <Point X="14.438" Y="4.373" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.589" Y="0.327" Height="0.182" Width="1.455" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_storageController" Type="API_Controllers.IController&lt;TModel&gt;" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12" Y="5.375" />
+        <Point X="16.312" Y="5.375" />
+        <Point X="16.312" Y="4.373" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.23" Y="0.714" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAACBAAAAAAACgAsAACAAgkgBBFBCQgADIQACAKJhA=</HashCode>
+      <FileName>Scenes\StorageScene.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_fileController" />
+      <Field Name="_folderController" />
+      <Field Name="_storageController" />
+      <Property Name="File" />
+      <Property Name="Folder" />
+      <Property Name="Storage" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.App">
+    <Position X="9.75" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.MainWindow">
+    <Position X="16.75" Y="2.75" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="_contentScene" Type="UI.Scenes.ContentScene" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="18.375" Y="2.75" />
+        <Point X="18.375" Y="1.125" />
+        <Point X="11.75" Y="1.125" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAABAACBAAAAAAAAAAQAIAAIBAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_contentScene" />
+      <Field Name="_storageScene" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="API_Models.FileModel" Collapsed="true">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="API_Models.FolderModel" Collapsed="true">
+    <Position X="5" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="API_Models.StorageModel" Collapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="API_Controllers.IController&lt;TModel&gt;">
+    <Position X="14" Y="2.5" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

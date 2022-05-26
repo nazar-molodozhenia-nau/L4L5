@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="DAL_Modules.UnitofWorkModule">
+    <Position X="8.5" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\UnitOfWorkModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL_Entities.File" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DAL_Entities.Folder" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DAL_Entities.Storage">
+    <Position X="5" Y="0.5" Width="2" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="SpecificType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DAL_Database.ApplicationDbContext">
+    <Position X="7.25" Y="1" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DAL_Repositories.Repository&lt;TEntity&gt;">
+    <Position X="7.25" Y="5.25" Width="2.75" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DAL_UofW.UnitOfWork">
+    <Position X="4.25" Y="5.75" Width="2.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="File" />
+      <Property Name="Folder" />
+      <Property Name="Storage" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="DAL_Repositories.IRepository&lt;TEntity&gt;">
+    <Position X="4.25" Y="3" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DAL_UofW.IUnitOfWork">
+    <Position X="0.5" Y="3.75" Width="2.25" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="File" />
+      <Property Name="Folder" />
+      <Property Name="Storage" />
+    </ShowAsAssociation>
+  </Interface>
+  <Enum Name="DAL_Entities.SpecificType">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="DAL_Entities.TypeFile" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
